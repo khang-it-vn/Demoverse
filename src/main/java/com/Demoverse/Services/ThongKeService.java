@@ -3,10 +3,17 @@ package com.Demoverse.Services;
 import com.Demoverse.Entities.ThongKe;
 import com.Demoverse.Services.Interface.IThongKe;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class ThongKeService implements IThongKe {
+    private Connection con;
     private List<ThongKe> list;
+
+    public ThongKeService(Connection con)
+    {
+        this.con = con;
+    }
 
     @Override
     public List<ThongKe> getAll() {
