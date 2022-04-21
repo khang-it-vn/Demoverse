@@ -7,13 +7,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class AppServices {
-    private IBlockList blockList;
-    private IDeatailRoom deatailRoom;
-    private IRoom room;
-    private IThongKe thongKe;
-    private ITypeRoom typeRoom;
-    private IUsers users;
-    private Connection connection;
+    public IBlockList blockList;
+    public IDeatailRoom deatailRoom;
+    public IRoom room;
+    public IThongKe thongKe;
+    public ITypeRoom typeRoom;
+    public IUsers users;
+    public Connection connection;
     public AppServices()
     {
         this.connection = ConnectDB.getConnect();

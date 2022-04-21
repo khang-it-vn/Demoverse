@@ -52,14 +52,36 @@ public class TypeRoomService  implements ITypeRoom {
     }
 
     @Override
-    public void add(TypeRoom entity) {
 
-    }
+        public void add(TypeRoom entity) {
+            String query = "insert into type_room (ROOM_TYPE_NAME) values (?)";
+            try {
+                PreparedStatement preparedStatement = con.prepareStatement(query);
+                preparedStatement.setString(1,entity.getRoom_Type_Name());
+                ResultSet resultSet = preparedStatement.executeQuery();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
-    @Override
-    public void delete(TypeRoom entity) {
+        @Override
+        public void delete(TypeRoom entity) {
+            String query = "delete from type_room where ROOM_TYPE_NAME = ?";
+            try {
+                PreparedStatement preparedStatement = con.prepareStatement(query);
+                preparedStatement.setString(1,entity.getRoom_Type_Name());
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(resultSet.next())
+                {
 
-    }
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
+
 
     @Override
     public void update(TypeRoom entity) {
