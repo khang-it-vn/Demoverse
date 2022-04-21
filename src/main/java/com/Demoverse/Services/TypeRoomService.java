@@ -14,21 +14,11 @@ import java.util.List;
 
 public class TypeRoomService  implements ITypeRoom {
 
-
+    private Connection con;
     private List<TypeRoom> list;
 
-    public TypeRoomService(Connection con) throws SQLException {
-        list = new ArrayList<>();
-        String query = "select * from type_room";
-        PreparedStatement preparedStatement = con.prepareStatement(query);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        TypeRoom typeRoom = new TypeRoom();
-        while (resultSet.next())
-        {
-           typeRoom.setId(resultSet.getInt("ID"));
-           typeRoom.setRoom_Type_Name(resultSet.getString("ROOM_TYPE_NAME"));
-           list.add(typeRoom);
-        }
+    public TypeRoomService(Connection conn) throws SQLException {
+        this.con = conn;
     }
 
     public List<TypeRoom> getList() {
@@ -41,6 +31,23 @@ public class TypeRoomService  implements ITypeRoom {
 
     @Override
     public List<TypeRoom> getAll() {
+       try
+       {
+           list = new ArrayList<>();
+           String query = "select * from type_room";
+           PreparedStatement preparedStatement = con.prepareStatement(query);
+           ResultSet resultSet = preparedStatement.executeQuery();
+           TypeRoom typeRoom = new TypeRoom();
+           while (resultSet.next())
+           {
+               typeRoom.setId(resultSet.getInt("ID"));
+               typeRoom.setRoom_Type_Name(resultSet.getString("ROOM_TYPE_NAME"));
+               list.add(typeRoom);
+           }
+       }catch (Exception e)
+       {
+           System.out.println(e.getMessage());
+       }
         return null;
     }
 
