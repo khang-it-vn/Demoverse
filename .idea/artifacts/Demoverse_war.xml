@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Demoverse:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Demoverse</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Demoverse-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Demoverse:war exploded" />
+    </root>
+  </artifact>
+</component>
