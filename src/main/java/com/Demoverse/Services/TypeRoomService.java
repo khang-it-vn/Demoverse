@@ -1,8 +1,6 @@
 package com.Demoverse.Services;
 
-import com.Demoverse.Database.ConnectDB;
 import com.Demoverse.Entities.TypeRoom;
-import com.Demoverse.Entities.Users;
 import com.Demoverse.Services.Interface.ITypeRoom;
 
 import java.sql.Connection;
@@ -35,7 +33,7 @@ public class TypeRoomService  implements ITypeRoom {
        {
            list = new ArrayList<>();
            String query = "select * from type_room";
-           PreparedStatement preparedStatement = con.prepareStatement(query);
+           PreparedStatement preparedStatement = this.con.prepareStatement(query);
            ResultSet resultSet = preparedStatement.executeQuery();
            TypeRoom typeRoom = new TypeRoom();
            while (resultSet.next())
@@ -44,21 +42,26 @@ public class TypeRoomService  implements ITypeRoom {
                typeRoom.setRoom_Type_Name(resultSet.getString("ROOM_TYPE_NAME"));
                list.add(typeRoom);
            }
+           return list;
        }catch (Exception e)
        {
            System.out.println(e.getMessage());
+           return null;
        }
-        return null;
     }
 
     @Override
-
         public void add(TypeRoom entity) {
             String query = "insert into type_room (ROOM_TYPE_NAME) values (?)";
+
             try {
                 PreparedStatement preparedStatement = con.prepareStatement(query);
                 preparedStatement.setString(1,entity.getRoom_Type_Name());
-                ResultSet resultSet = preparedStatement.executeQuery();
+                int rows = preparedStatement.executeUpdate();
+                if(rows>0)
+                {
+                    System.out.println("add rows success");
+                }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
@@ -70,10 +73,10 @@ public class TypeRoomService  implements ITypeRoom {
             try {
                 PreparedStatement preparedStatement = con.prepareStatement(query);
                 preparedStatement.setString(1,entity.getRoom_Type_Name());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next())
+                int rows = preparedStatement.executeUpdate();
+                if(rows>0)
                 {
-
+                    System.out.println("delete rows success");
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -83,8 +86,20 @@ public class TypeRoomService  implements ITypeRoom {
 
 
 
-    @Override
+    //@Override
     public void update(TypeRoom entity) {
+        /*String query = "update type_room set ROOM_TYPE_NAME where ROOM_TYPE_NAME = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1,entity.getRoom_Type_Name());
+            int rows = preparedStatement.executeUpdate();
+            if(rows>0)
+            {
+                System.out.println("delete rows success");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }*/
 
     }
 }
