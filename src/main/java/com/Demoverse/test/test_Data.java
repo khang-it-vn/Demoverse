@@ -11,8 +11,8 @@ import java.io.IOException;
 public class test_Data extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AppServices services = new AppServices();
-        services
+//        AppServices services = new AppServices();
+//        services
         System.out.println();
     }
 }
