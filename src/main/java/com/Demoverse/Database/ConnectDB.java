@@ -2,22 +2,27 @@ package com.Demoverse.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
-public class ConnectDB {
-    public ConnectDB(){
+public class ConnectDB{
+    public ConnectDB() {
         super();
     }
-    public static Connection getConnect(){
+    public static Connection getConnect() {
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=demoverse;integratedSecurity=false;encrypt=false;";
+        String name = "sa";
+        String password = "abc@123";
         Connection connection = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection= DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=demoverse;user=sa;password=abc@123;useUnicode=true;characterEncoding=UTF-8");
-            System.out.println("Kết nối thành công!");
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println("Kết nối thất bại!"+e.getMessage());
+            connection =  DriverManager.getConnection(url, name, password);
+            if(connection != null)
+            {
+                System.out.println("Connected!");
+            }
+        } catch (Exception e) {
+            System.out.println("Connect Failed with Error: " + e.toString());
+            return null;
         }
         return connection;
     }
-
 }
