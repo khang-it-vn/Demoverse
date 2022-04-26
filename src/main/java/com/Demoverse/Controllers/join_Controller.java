@@ -13,6 +13,7 @@ public class join_Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id_room = Integer.valueOf(req.getParameter("meetingID"));
-        resp.sendRedirect("http://127.0.0.1:3000/index.html?meetingID="+id_room);
+        String name = "nguyen hoang khang";
+        resp.sendRedirect("http://127.0.0.1:3000/index.html?meeting_id="+id_room +"&user_id="+name);
     }
 }
