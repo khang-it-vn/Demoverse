@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-    <link rel="stylesheet" href="views/style.css">
+    <link rel="stylesheet" href="src/main/webapp/views/style.css">
     <script src="src/main/webapp/views/app.js"></script>
     <title id="room_title">Room_ID</title>
 </head>
@@ -64,7 +64,7 @@
                         <div class="in-call-wrap d-flex justify-content-between align-items-center mb-3">
                             <div class="participant-img-name-wrap display-center cursor-pointer">
                                 <div class="participant-img">
-                                    <img src="public/Assets/images/other.jpg" alt="" class="border border-secondary" style="height: 40px;width: 40px;border-radius: 50%;">
+                                    <img src="src/main/webapp/public/Assets/images/other.jpg" alt="" class="border border-secondary" style="height: 40px;width: 40px;border-radius: 50%;">
                                 </div>
                                 <div class="participant-name ml-2">You</div>
                             </div>

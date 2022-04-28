@@ -35,11 +35,12 @@ public class TypeRoomService  implements ITypeRoom {
            String query = "select * from type_room";
            PreparedStatement preparedStatement = this.con.prepareStatement(query);
            ResultSet resultSet = preparedStatement.executeQuery();
-           TypeRoom typeRoom = new TypeRoom();
            while (resultSet.next())
            {
+               TypeRoom typeRoom = new TypeRoom();
                typeRoom.setId(resultSet.getInt("ID"));
                typeRoom.setRoom_Type_Name(resultSet.getString("ROOM_TYPE_NAME"));
+               typeRoom.setId_Topic(resultSet.getInt("ID_TOPIC"));
                list.add(typeRoom);
            }
            return list;
