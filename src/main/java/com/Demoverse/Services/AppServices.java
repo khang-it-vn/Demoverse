@@ -32,7 +32,7 @@ public class AppServices {
         if(!bool)
             users.add(user);
         else
-            System.out.println("xxx");
+            System.out.println("Da ton tai email");
     }
     public void deleteUser(Users user)
     {

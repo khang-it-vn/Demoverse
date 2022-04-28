@@ -109,7 +109,7 @@ public class UsersService  implements IUsers {
     }
     @Override
     public Boolean find (String str){
-        Boolean bool = true;
+        Boolean bool = false;
         String query = "select * from users where EMAIL = ?";
         try {
             PreparedStatement preparedStatement = con.prepareStatement(query);
@@ -117,7 +117,7 @@ public class UsersService  implements IUsers {
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next())
             {
-                bool = false;
+                bool = true;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -192,7 +192,7 @@
             <h1 style="text-align: center; font-weight: bold; color: rgb(200,200,100)">ROOM INFORMATION</h1>
 
             <label style="text-underline: black"><b>Password for room</b></label>
-            <input type="password" placeholder="Enter Password (10<= password <= 100 ký tự)" name="password" minlength="10" && maxlength="100" required>
+            <input type="password" placeholder="Enter Password (10<= password <= 100 character)" name="password" minlength="10" && maxlength="100" required>
             <label style="font-weight: bold; text-underline: black" >Choose a type of room:</label>
             <select name="type_room" id="type_room_combobox" style="width: 100%; height: 35px;">
             <c:forEach var="type" items="${typeRooms_combobox}">
