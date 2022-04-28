@@ -46,4 +46,16 @@ public class AppServices {
             System.out.println(e.getMessage());
         }
     }
+    public boolean checkLogin(Users user) {
+        boolean bool = false;
+        bool = users.checkPass(user);
+        return bool;
+    }
+
+    public  boolean checkUser(String str)
+    {
+        //ton tai tra ve false, khong ton tai tra ve true
+        boolean bool = users.find(str);
+        return bool;
+    }
 }
