@@ -124,6 +124,46 @@ public class UsersService  implements IUsers {
         }
         return bool;
     }
+
+    @Override
+    public boolean checkPass(Users users) {
+        boolean bool = false;
+        String query = "select * from users where EMAIL = ? and passs = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, users.getEmail());
+            preparedStatement.setString(2, users.getPass());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next())
+            {
+                bool = true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return bool;
+    }
+
+    @Override
+    public Users findUser(Users user) {
+        Users user_finded ;
+        String query = "select * from users where EMAIL = ? and passs = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPass());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next())
+            {
+                user_finded = new Users(resultSet.getString("EMAIl"), resultSet.getString("USERNAME"), resultSet.getString("Passs"),resultSet.getString("INTRODUCE"));
+                return user_finded;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public void setList(List<Users> list) {
         this.list = list;
     }
