@@ -14,6 +14,7 @@ public class AppServices {
     public ITypeRoom typeRoom;
     public IUsers users;
     public Connection connection;
+    public IMainTopic mainTopic;
     public AppServices()
     {
         this.connection = ConnectDB.getConnect();
@@ -23,6 +24,7 @@ public class AppServices {
         this.room = new RoomService(this.connection);
         this.users = new UsersService(this.connection);
         this.typeRoom = new TypeRoomService(this.connection);
+        this.mainTopic = new MainTopicServices(this.connection);
     }
     public void addUser(Users user)
     {
