@@ -6,4 +6,6 @@ public interface IUsers extends IRepositoryBase<Users> {
     Boolean find(String str);
     boolean checkPass(Users users);
     Users findUser(Users user);
+
+    Users findUserReplacePass(String email);
 }

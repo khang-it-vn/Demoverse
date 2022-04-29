@@ -1,8 +1,9 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Demoverse.login</title>
+    <title>Demoverse Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -27,27 +28,21 @@
                     <div class="icon d-flex align-items-center justify-content-center">
                         <span class="fa fa-user-o"></span>
                     </div>
-                    <h3 class="text-center mb-4">Sign In</h3>
-                    <form action="login" class="login-form" method="post">
-                        <div class="form-group">
-                            <input type="text" name="email" class="form-control rounded-left" placeholder="Email" required>
+                    <h3 class="text-center mb-4">Change Password</h3>
+                    <form action="replacePasswordSubmit" class="login-form" method="post">
+                        <div class="form-group" style="" >
+                            <input type="text" name="email" value="<%=request.getParameter("email")%>" class="form-control rounded-left">
                         </div>
-                        <div class="form-group d-flex">
+                        <div class="form-group">
                             <input type="password" name="password" class="form-control rounded-left" placeholder="Password" required>
                         </div>
+                        <div class="form-group d-flex">
+                            <input type="password" name="repassword" class="form-control rounded-left" placeholder="Re-Password" required>
+                        </div>
                         <div class="form-group">
-                            <button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+                            <button type="submit" class="form-control btn btn-primary rounded submit px-3">Change</button>
                         </div>
                         <div class="form-group d-md-flex">
-                            <div class="w-50">
-                                <label class="checkbox-wrap checkbox-primary">
-                                    <a href="createAccount.jsp">Create an account</a>
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="w-50 text-md-right">
-                                <a onclick="chay()" style="color: #00acc1">Forgot Password</a>
-                            </div>
                         </div>
                     </form>
                 </div>
@@ -55,19 +50,5 @@
         </div>
     </div>
 </section>
-<div style="width: 300px; display: none; margin-left: 40% ;" id="0123">
-    <form action="replacePasswordSendMail" method="post">
-        <input style="width: 100%;" type="text" name="email" placeholder="nhap mail">
-        <input style="width: 30%; margin-left: 70%;color: #1E88E5" type="submit" value="send mail">
-    </form>
-</div>
-<script>
-    function chay()
-    {
-        document.getElementById("0123").style.display = "block";
-    }
-</script>
 </body>
 </html>
-
-

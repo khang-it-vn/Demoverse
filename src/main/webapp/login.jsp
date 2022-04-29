@@ -46,7 +46,7 @@
                                 </label>
                             </div>
                             <div class="w-50 text-md-right">
-                                <a href="#">Forgot Password</a>
+                                <a onclick="chay()" style="color: #00acc1">Forgot Password</a>
                             </div>
                         </div>
                     </form>
@@ -55,8 +55,18 @@
         </div>
     </div>
 </section>
-
-
+<div style="width: 300px; display: none; margin-left: 40% ;" id="0123">
+    <form action="replacePasswordSendMail" method="post">
+        <input style="width: 100%;" type="text" name="email" placeholder="nhap mail">
+        <input style="width: 30%; margin-left: 70%;color: #1E88E5" type="submit" value="send mail">
+    </form>
+</div>
+<script>
+    function chay()
+    {
+        document.getElementById("0123").style.display = "block";
+    }
+</script>
 </body>
 </html>
 

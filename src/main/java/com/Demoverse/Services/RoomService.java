@@ -109,4 +109,20 @@ public class RoomService implements IRoom {
         }
         return -1;
     }
+
+    @Override
+    public Room findByKeyRoom(int id_room) {
+        String query = "select * from room where key_room = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setInt(1,id_room);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return new Room(rs.getInt("KEY_ROOM"),rs.getInt("ID_TYPE"),rs.getInt("TOTAL"),rs.getString("PASSWORD_ROOM"),rs.getBoolean("STATES"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

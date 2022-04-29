@@ -164,6 +164,25 @@ public class UsersService  implements IUsers {
         return null;
     }
 
+    @Override
+    public Users findUserReplacePass(String email) {
+        Users user_finded ;
+        String query = "select * from users where EMAIL = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next())
+            {
+                user_finded = new Users(resultSet.getString("EMAIl"), resultSet.getString("USERNAME"), resultSet.getString("Passs"),resultSet.getString("INTRODUCE"));
+                return user_finded;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public void setList(List<Users> list) {
         this.list = list;
     }

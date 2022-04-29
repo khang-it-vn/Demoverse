@@ -58,4 +58,12 @@ public class AppServices {
         boolean bool = users.find(str);
         return bool;
     }
+
+    public Users findUserReplacePass(String email) {
+        return users.findUserReplacePass(email);
+    }
+
+    public void updateUser(Users user) {
+        users.update(user);
+    }
 }

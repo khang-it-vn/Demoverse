@@ -20,7 +20,7 @@ public class MailUtil {
         properties.put("mail.smtp.port","587");
 
         String myAccountEmail = "demoversevn@gmail.com";
-        String password = "1234567890Tk.";
+        String password = "%damhackmailtao%%<>%";
         Session session = Session.getInstance(properties ,  new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -42,6 +42,42 @@ public class MailUtil {
             message.setText("Xin chao, \n Link xac nhan tao tai khoan Demoverse cua ban la " + "http://localhost:8080/Demoverse_war_exploded/confirm?email="+users.getEmail()+"&username="+username_convert_url+"&password="+users.getPass());// noi dung ben trong mail
             return message;
         } catch (MessagingException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void send_link_Replace_Password(Users users) throws MessagingException {
+        System.out.println("preparing to send email");
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth","true");
+        properties.put("mail.smtp.starttls.enable","true");
+        properties.put("mail.smtp.host","smtp.gmail.com");
+        properties.put("mail.smtp.port","587");
+
+        String myAccountEmail = "demoversevn@gmail.com";
+        String password = "%damhackmailtao%%<>%";
+        Session session = Session.getInstance(properties ,  new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(myAccountEmail,password);
+            }
+        });
+        Message message = prepareMessage_replacePassword(session,myAccountEmail, users);
+        Transport.send(message);
+        System.out.println("message send successfully");
+    }
+
+    private static Message prepareMessage_replacePassword(Session session, String myAccountEmail, Users users) {
+        Message message = new MimeMessage(session);
+        try {
+            message.setFrom(new InternetAddress(myAccountEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(users.getEmail()));
+            message.setSubject("Xac Nhan thay doi mat khau Tai Khoan Demoverse"); // tieue dde cua mail
+
+            message.setText("Xin chao, \n Link xac nhan thay doi mat khau tai khoan Demoverse cua ban la " + "http://localhost:8080/Demoverse_war_exploded/replacePassword.jsp?email="+users.getEmail());// noi dung ben trong mail
+            return message;
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
         return null;
