@@ -20,7 +20,7 @@ public class MailUtil {
         properties.put("mail.smtp.port","587");
 
         String myAccountEmail = "demoversevn@gmail.com";
-        String password = "1234567890Tk.";
+        String password = "%damhackmailtao%%<>%";
         Session session = Session.getInstance(properties ,  new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
