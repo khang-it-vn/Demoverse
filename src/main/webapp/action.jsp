@@ -1,5 +1,7 @@
 <%@ page import="java.util.Random" %>
 <%@ page import="jakarta.servlet.http.Cookie" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -33,7 +35,7 @@
 
         /* Change the link color on hover */
         li a:hover {
-            background-color: #555;
+            background-color: lightblue;
             color: white;
         }
 
@@ -112,7 +114,7 @@
     </style>
 
 </head>
-<body style="padding-top: 3.5rem; background-image: url('https://file1.hutech.edu.vn/file/editor/homepage/stories/hinh77-afd/3.jpg')">
+<body style="padding-top: 3.5rem; ">
 <%
     String username = null;
     Cookie[] cookies = request.getCookies();
@@ -123,71 +125,99 @@
         }
     }
 %>
-<nav class="navbar navbar-expand-md fixed-top" style="border-bottom:  10px solid grey; border-left: 5px;border-right: 5px ">
-    <a href="home" class="navbar-brand text-dark">Demoverse</a>
-    <div class="collapse navbar-collapse" style = "align-items: center;">
-        <ul class="display-center " >
-            <li style="padding: 0;">
-                <button class="btn btn-lg text-light font-weight-bold display-center new-meeting" style="background-color: #5f02ff; " onclick="load_room()">Room List</button>
-            </li>
-            <li>
-                <form action="join" method="get" >
-                    <ul class="" style="margin-top: 10px">
+<nav class="navbar navbar-expand-md fixed-top bg-light" style="  ">
+    <a href="home" class="navbar-brand text-dark" style="text-shadow: 0 0 3px #b8daff, 0 0 5px black">Demoverse</a>
+    <div class="collapse navbar-collapse navbar-light bg-light" style="">
+        <btn style="padding: 0;">
+            <button class="btn btn-lg text-light font-weight-bold display-center new-meeting" style="background-color: #00b8d4; " onclick="load_room()">Room List</button>
+        </btn>
+        <ul class="display-center bg-light" >
+            <form action="join" class="bg-light" method="get" style="width: 680px">
+                <ul class="" style="margin-top: 10px">
+                    <li style="display: inline; ">
                         <span class="material-icons mr-2 ">keyboard</span>
-                        <input name="meetingID" type="text" placeholder="Enter a code" style="
-                                 margin-top:10px; width: 70%; box-sizing: border-box; " class="enter-code border-2 ">
-                        <input style="margin-left: 36px; width: 70%" name="password_room" type="password" placeholder="Enter a password room if it private room">
-                        <input class="text-dark btn text-light font-weight-bold cursor-pointer pl-2 join-action " style="background-color: #5f02ff;" type="submit" value="Join">
-                    </ul>
-                </form>
-            </li>
-            <li style="padding: 0;">
-                <button onclick="openForm()" class="btn btn-lg text-light font-weight-bold display-center new-meeting" style="background-color: #5f02ff;"><span class="material-icons mr-2">video_call</span>Create Room</button>
-            </li>
+                    </li>
+                    <li style="display: inline; ">
+                        <input style="width: 35%" name="meetingID" type="text" placeholder="Enter a code"  class="enter-code border-2 " value="">
+                    </li>
+                    <li style="display: inline; margin-left: 5px; ">
+                        <input  name="password_room" type="password" placeholder="Enter password room ">
+                    </li>
+                    <li style="display: inline; margin-left: 10px; background-color: #00b8d4" class="btn" >
+                        <input style="background-color: #00b8d4; border: none" class=" text-light font-weight-bold cursor-pointer pl-2 join-action " type="submit" value="Join">
+                    </li>
+                   </ul>
+            </form>
         </ul>
+        <btn style="padding: 0; margin-left: 20px">
+            <button onclick="openForm()" class="btn btn-lg text-light font-weight-bold display-center new-meeting" style="background-color: #00b8d4;"><span class="material-icons mr-2">video_call</span>Create Room</button>
+        </btn>
     </div>
-    <div class="display-center btn btn-lg " data-id="profile" style="background-color:#5f02ff ;">
+    <div class="display-center btn btn-lg " data-id="profile" style="background-color:#00b8d4 ;">
         <span class="material-icons mr-2">contacts</span>
         Profile
     </div>
 </nav>
 <main >
-
-    <div style="position: absolute; left: 10px; top: 130px; text-align: center;">
+<script>
+    let state = true;
+    var typeRooms=<%=request.getAttribute("typeRooms")%>;
+    var rooms=<%=request.getAttribute("rooms")%>;
+    var typeRoom_Loaded = [];
+</script>
+    <div style="position: absolute; left: 10px; top: 130px; ">
         <ul>
             <c:forEach var="mainTopic" items="${mainTopics}">
-                <li  id="${mainTopic.id_Topic}mt" readonly style="background-color: gray; margin-top: 5px; margin-bottom: 7px;" ><a >${mainTopic.name_Topic}</a></li>
-                <div class="${mainTopic.id_Topic}mt mb-3"></div>
+                <li  id="${mainTopic.id_Topic}mt" readonly style="background-color: lightgrey; margin-top: 5px; margin-bottom: 7px; " >
+                    <a >${mainTopic.name_Topic}</a>
+                </li>
+                <li class="btn close-${mainTopic.id_Topic}" style="color: black; font-weight: bold; font-size: 16px; display: none;">
+                    X
+                </li>
+                <div class="${mainTopic.id_Topic}mt mb-3 bg-light"></div>
                 <script>
-                    var typeRooms=<%=request.getAttribute("typeRooms")%>;
-                    var rooms=<%=request.getAttribute("rooms")%>;
                     $(document).on("click", "#${mainTopic.id_Topic}mt", function ()
                     {
-                        var so_Phong=0;
                         typeRooms.forEach(t=>{
-                            if(t.id_Topic == ${mainTopic.id_Topic})
+                            if(!typeRoom_Loaded.find(e => e == t.id))
                             {
-                                var type_room_div = $(".room_all").clone();
-                                type_room_div.removeClass("room_all").addClass("lan"+stt);
-                                type_room_div.addClass("mb-3");
-                                type_room_div.find("label").text(t.room_Type_Name);
-                                $(".${mainTopic.id_Topic}mt").append(type_room_div);
-                                rooms.forEach(r => {
-                                    if(r.id_Type == t.id && r.state )
-                                    {
-                                        var div_room = $(".catetogory").clone();
-                                        div_room.removeClass("catetogory").addClass("btn p-4");
-                                        div_room.attr("href", "http://127.0.0.1:3000/index.html?meeting_id="+r.key_Room +"&user_id=<%=username%>");
-                                        div_room.find("li").text("Phòng "+so_Phong);
-                                        so_Phong++;
-                                        $(".lan"+stt).append(div_room);
-                                    }
-                                })
+                                if(t.id_Topic == ${mainTopic.id_Topic})
+                                {
+                                    typeRoom_Loaded.push(t.id);
+                                    var type_room_div = $(".room_all").clone();
+                                    type_room_div.removeClass("room_all").addClass("lan"+stt);
+                                    type_room_div.addClass("mb-3");
+                                    type_room_div.find("label").text(t.room_Type_Name);
+                                    $(".${mainTopic.id_Topic}mt").append(type_room_div);
+                                    var so_Phong=0;
+                                    rooms.forEach(r => {
+                                        if(r.id_Type == t.id && r.state )
+                                        {
+                                            var div_room = $(".catetogory").clone();
+                                            div_room.removeClass("catetogory").addClass("btn p-4 m-2 border-2 border-warning");
+                                            div_room.attr("href", "http://127.0.0.1:3000/index.html?meeting_id="+r.key_Room +"&user_id=<%=username%>");
+                                            div_room.find("li").text("Phòng "+so_Phong);
+                                            so_Phong++;
+                                            $(".lan"+stt).append(div_room);
+                                        }
+                                    })
+                                }
+                                stt++;
                             }
-                            stt++;
                         })
+                        let name_elenment = "" + ${mainTopic.id_Topic} + "mt";
+                        $("." + name_elenment).attr("style","display: block");
+                        $(".close-" +${mainTopic.id_Topic}).attr("style","display: flex");
                     });
                 </script>
+                    <script>
+                        $(document).on("click", ".close-${mainTopic.id_Topic}", function () {
+                                let name_elenment = "" + ${mainTopic.id_Topic} + "mt";
+                                $("." + name_elenment).attr("style","display: none");
+                                $(this).attr("style","display: none");
+
+                        });
+                    </script>
             </c:forEach>
         </ul>
     </div>
@@ -195,8 +225,8 @@
     <div style="border: 5px solid black;display: none">
         <nav style="display: flex; position: relative;">
             <ul style="float: left;"  id="main">
-                <a class="catetogory">
-                    <li  style="border: 1px solid black; display: inline; margin-right: 5px; margin-left: 5px; align-items: center">repacetext</li>
+                <a class="catetogory" style="width: 169px; height: 90px; background-image: url('public/Assets/images/img.png'); background-size: 169px">
+                    <li  style=" display: inline; margin-right: 5px; margin-left: 5px; font-weight: bolder; color: black ">replacetext</li>
                 </a>
             </ul>
         </nav>
@@ -204,7 +234,6 @@
 
     <%--    banner--%>
     <%--    <button class="open-button" onclick="openForm()">Open Form</button>--%>
-
     <div class="form-popup" id="myForm" style="bottom:300px;right: 400px; left: 400px; top: 150px">
         <form action="create_new_meeting" class="form-container" method="post">
             <h1 style="text-align: center; font-weight: bold; color: rgb(200,200,100)">ROOM INFORMATION</h1>
@@ -217,8 +246,8 @@
                     <option value="${type.id}" >${type.room_Type_Name}</option>
                 </c:forEach>
             </select>
-            <button type="submit" class="btn">Create</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+            <button style="width: 50%; float: left" type="submit" class="btn">Create</button>
+            <button style="width: 50%; float: left" type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
         </form>
     </div>
     <script>
