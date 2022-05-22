@@ -183,6 +183,47 @@ public class UsersService  implements IUsers {
         return null;
     }
 
+    @Override
+    public Users getUserBy(String email) {
+        Users user;
+        String query = "select * from users where email = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next())
+            {
+                user = new Users(resultSet.getString("EMAIl"), resultSet.getString("USERNAME"), resultSet.getString("Passs"),resultSet.getString("INTRODUCE"));
+                return user;
+            }
+        }catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public void updateInfo(Users user) {
+        String query = "update users set  USERNAME = ?, INTRODUCE = ? where EMAIL = ?";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1,user.getUsername());
+            preparedStatement.setString(2,user.getIntroduce());
+            preparedStatement.setString(3,user.getEmail());
+            int rows = preparedStatement.executeUpdate();
+            if(rows>0)
+            {
+                System.out.println("Update rows success");
+            }
+            else
+                System.out.println("Update rows not success");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     public void setList(List<Users> list) {
         this.list = list;
     }

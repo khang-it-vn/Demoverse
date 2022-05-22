@@ -2,6 +2,7 @@
 <%@ page import="jakarta.servlet.http.Cookie" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.Demoverse.Entities.Users" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -116,15 +117,22 @@
 </head>
 <body style="padding-top: 3.5rem; ">
 <%
-    String username = null;
+    Users user = new Users();
     Cookie[] cookies = request.getCookies();
-    for (Cookie c:cookies) {
-        if(c.getName().equals("username"))
-        {
-            username = c.getValue().replace("+"," ");
-        }
-    }
+    user.setUsername((String) request.getSession().getAttribute("username"));
+    user.setEmail((String) request.getSession().getAttribute("email"));
+//    for (Cookie c:cookies) {
+//        if(c.getName().equals("username"))
+//        {
+//            user.setUsername( c.getValue().replace("+"," "));
+//        }
+//        if(c.getName().equals("email"))
+//        {
+//            user.setEmail(c.getValue());
+//        }
+//    }
 %>
+<script>var user_name = <%=user.getUsername()%>%</script>
 <nav class="navbar navbar-expand-md fixed-top bg-light" style="  ">
     <a href="home" class="navbar-brand text-dark" style="text-shadow: 0 0 3px #b8daff, 0 0 5px black">Demoverse</a>
     <div class="collapse navbar-collapse navbar-light bg-light" style="">
@@ -153,9 +161,10 @@
             <button onclick="openForm()" class="btn btn-lg text-light font-weight-bold display-center new-meeting" style="background-color: #00b8d4;"><span class="material-icons mr-2">video_call</span>Create Room</button>
         </btn>
     </div>
-    <div class="display-center btn btn-lg " data-id="profile" style="background-color:#00b8d4 ;">
+    <div class="display-center btn btn-lg " data-id="profile" style="background-color:#00b8d4 ; "onclick="loadProfile()">
+
         <span class="material-icons mr-2">contacts</span>
-        Profile
+        Profile: <%=user.getUsername().substring(user.getUsername().lastIndexOf(" "))%>
     </div>
 </nav>
 <main >
@@ -189,13 +198,13 @@
                                     type_room_div.addClass("mb-3");
                                     type_room_div.find("label").text(t.room_Type_Name);
                                     $(".${mainTopic.id_Topic}mt").append(type_room_div);
-                                    var so_Phong=0;
+                                    var so_Phong=1;
                                     rooms.forEach(r => {
                                         if(r.id_Type == t.id && r.state )
                                         {
                                             var div_room = $(".catetogory").clone();
                                             div_room.removeClass("catetogory").addClass("btn p-4 m-2 border-2 border-warning");
-                                            div_room.attr("href", "http://127.0.0.1:3000/index.html?meeting_id="+r.key_Room +"&user_id=<%=username%>");
+                                            div_room.attr("href", "http://localhost:8080/Demoverse_war_exploded/join?meetingID="+r.key_Room+"&email=<%=user.getEmail()%>");
                                             div_room.find("li").text("Phòng "+so_Phong);
                                             so_Phong++;
                                             $(".lan"+stt).append(div_room);
@@ -257,6 +266,9 @@
 
         function closeForm() {
             document.getElementById("myForm").style.display = "none";
+        }
+        function loadProfile(){
+            window.location.href = "profile";
         }
     </script>
 </main>

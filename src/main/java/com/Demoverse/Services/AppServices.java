@@ -1,6 +1,7 @@
 package com.Demoverse.Services;
 
 import com.Demoverse.Database.ConnectDB;
+import com.Demoverse.Entities.DetailRoom;
 import com.Demoverse.Entities.Users;
 import com.Demoverse.Services.Interface.*;
 
@@ -65,5 +66,13 @@ public class AppServices {
 
     public void updateUser(Users user) {
         users.update(user);
+    }
+
+    public DetailRoom findDetailRoom(DetailRoom entity) {
+        return deatailRoom.findDetailRoom(entity);
+    }
+
+    public void addDetailRoom(DetailRoom detailRoom) {
+        this.deatailRoom.add(detailRoom);
     }
 }
