@@ -8,4 +8,8 @@ public interface IUsers extends IRepositoryBase<Users> {
     Users findUser(Users user);
 
     Users findUserReplacePass(String email);
+
+    Users getUserBy(String email);
+
+    void updateInfo(Users user);
 }

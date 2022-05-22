@@ -18,6 +18,8 @@
   "homepage": "https://github.com/nguyenhoangkhangithutech/DoAn#readme",
   "dependencies": {
     "express": "^4.17.3",
-    "socket.io": "^4.4.1"
+    "mssql": "^8.1.0",
+    "socket.io": "^4.4.1",
+    "tedious": "^14.4.0"
   }
 }

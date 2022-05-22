@@ -91,4 +91,21 @@ public class DetailRoomService implements IDeatailRoom {
         }
     }*/
     }
+
+    @Override
+    public DetailRoom findDetailRoom(DetailRoom entity) {
+        String query = "select * from detail_room where  Key_Room = ? and email = ? ";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setInt(1, entity.getKey_Room());
+            preparedStatement.setString(2, entity.getEmail());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return new DetailRoom(resultSet.getString("EMAIL"),resultSet.getInt("KEY_ROOM"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }
