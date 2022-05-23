@@ -3,8 +3,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.Demoverse.Entities.Users" %>
+<%@ page import="java.net.URLDecoder" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -120,19 +121,20 @@
     Users user = new Users();
     Cookie[] cookies = request.getCookies();
     user.setUsername((String) request.getSession().getAttribute("username"));
+    System.out.println(user.getUsername());
     user.setEmail((String) request.getSession().getAttribute("email"));
 //    for (Cookie c:cookies) {
-//        if(c.getName().equals("username"))
-//        {
-//            user.setUsername( c.getValue().replace("+"," "));
+//        if (c.getName().equals("username")) {
+//            user.setUsername(c.getValue().replace("+", " "));
+//            System.out.println(user.getUsername());
 //        }
+//    }
 //        if(c.getName().equals("email"))
 //        {
 //            user.setEmail(c.getValue());
 //        }
 //    }
 %>
-<script>var user_name = <%=user.getUsername()%>%</script>
 <nav class="navbar navbar-expand-md fixed-top bg-light" style="  ">
     <a href="home" class="navbar-brand text-dark" style="text-shadow: 0 0 3px #b8daff, 0 0 5px black">Demoverse</a>
     <div class="collapse navbar-collapse navbar-light bg-light" style="">
@@ -150,6 +152,7 @@
                     </li>
                     <li style="display: inline; margin-left: 5px; ">
                         <input  name="password_room" type="password" placeholder="Enter password room ">
+                        <input name="email" style="display: none" value="<%=user.getEmail()%>">
                     </li>
                     <li style="display: inline; margin-left: 10px; background-color: #00b8d4" class="btn" >
                         <input style="background-color: #00b8d4; border: none" class=" text-light font-weight-bold cursor-pointer pl-2 join-action " type="submit" value="Join">
@@ -246,7 +249,7 @@
     <div class="form-popup" id="myForm" style="bottom:300px;right: 400px; left: 400px; top: 150px">
         <form action="create_new_meeting" class="form-container" method="post">
             <h1 style="text-align: center; font-weight: bold; color: rgb(200,200,100)">ROOM INFORMATION</h1>
-
+            <input name="email" value="<%=user.getEmail()%>" style="display: none;">
             <label style="text-underline: black"><b>Password for room</b></label>
             <input type="password" placeholder="Enter Password (10<= password <= 100 character)" name="password" minlength="10" && maxlength="100" required>
             <label style="font-weight: bold; text-underline: black" >Choose a type of room:</label>

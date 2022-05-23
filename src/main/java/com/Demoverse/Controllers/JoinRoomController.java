@@ -52,33 +52,31 @@ public class JoinRoomController extends HttpServlet {
             {
                 appServices.addDetailRoom(detailRoom);
             }
-            else
-            {
-                resp.setContentType("text/html");
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("action.jsp");
-                requestDispatcher.include(req,resp);
-                PrintWriter writer = resp.getWriter();
-                writer.println("<script> alert(\"You are currently opening this room\");</script>");
-                return;
-            }
-            if(room.getState())
+//            else
+//            {
+//                resp.setContentType("text/html");
+//                RequestDispatcher requestDispatcher = req.getRequestDispatcher("action.jsp");
+//                requestDispatcher.include(req,resp);
+//                PrintWriter writer = resp.getWriter();
+//                writer.println("<script> alert(\"You are currently opening this room\");</script>");
+//                return;
+//            }
+            if(room.getState() == true)
             {
                 resp.sendRedirect("http://127.0.0.1:3000/index.html?meeting_id="+id_room +"&user_id="+user.getEmail()+"&user_name="+URLEncoder.encode(user.getUsername(), StandardCharsets.UTF_8.toString()));
             }
             else
             {
                 String password_room = req.getParameter("password_room");
-                if(password_room.compareTo(room.getPassword_Room())==0)
-                {
-                    resp.sendRedirect("http://127.0.0.1:3000/index.html?meeting_id="+id_room +"&user_id="+user.getEmail()+"&user_name="+URLEncoder.encode(user.getUsername(), StandardCharsets.UTF_8.toString()));
-                }
-                else
+                if(room.getPassword_Room().compareTo(password_room) != 0 || password_room == null)
                 {
                     resp.setContentType("text/html");
                     PrintWriter writer = resp.getWriter();
                     writer.println("<script> alert(\"password room wrong\");</script>");
                     RequestDispatcher requestDispatcher = req.getRequestDispatcher("action.jsp");
                     requestDispatcher.include(req,resp);
+                }else {
+                    resp.sendRedirect("http://127.0.0.1:3000/index.html?meeting_id="+id_room +"&user_id="+user.getEmail()+"&user_name="+URLEncoder.encode(user.getUsername(), StandardCharsets.UTF_8.toString()));
                 }
             }
         }

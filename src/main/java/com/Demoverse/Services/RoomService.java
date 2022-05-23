@@ -96,7 +96,7 @@ public class RoomService implements IRoom {
 
     @Override
     public int count() {
-        String query = "select count(*) from room";
+        String query = "select top 1 with ties KEY_ROOM from ROOM order by KEY_ROOM desc";
         try {
             PreparedStatement preparedStatement = con.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
